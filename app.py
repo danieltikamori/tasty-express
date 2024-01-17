@@ -1,19 +1,21 @@
 import os
 
-print("""
+def show_app_name():
+    print("""
 ████████╗░█████╗░░██████╗████████╗██╗░░░██╗  ███████╗██╗░░██╗██████╗░██████╗░███████╗░██████╗░██████╗
 ╚══██╔══╝██╔══██╗██╔════╝╚══██╔══╝╚██╗░██╔╝  ██╔════╝╚██╗██╔╝██╔══██╗██╔══██╗██╔════╝██╔════╝██╔════╝
 ░░░██║░░░███████║╚█████╗░░░░██║░░░░╚████╔╝░  █████╗░░░╚███╔╝░██████╔╝██████╔╝█████╗░░╚█████╗░╚█████╗░
 ░░░██║░░░██╔══██║░╚═══██╗░░░██║░░░░░╚██╔╝░░  ██╔══╝░░░██╔██╗░██╔═══╝░██╔══██╗██╔══╝░░░╚═══██╗░╚═══██╗
 ░░░██║░░░██║░░██║██████╔╝░░░██║░░░░░░██║░░░  ███████╗██╔╝╚██╗██║░░░░░██║░░██║███████╗██████╔╝██████╔╝
-░░░╚═╝░░░╚═╝░░╚═╝╚═════╝░░░░╚═╝░░░░░░╚═╝░░░  ╚══════╝╚═╝░░╚═╝╚═╝░░░░░╚═╝░░╚═╝╚══════╝╚═════╝░╚═════╝░""") #""" line break
+░░░╚═╝░░░╚═╝░░╚═╝╚═════╝░░░░╚═╝░░░░░░╚═╝░░░  ╚══════╝╚═╝░░╚═╝╚═╝░░░░░╚═╝░░╚═╝╚══════╝╚═════╝░╚═════╝░
+""") #""" line break
 
-print("1. Register restaurant")
-print("2. List restaurants")
-print("3. Activate restaurant")
-print("4. Quit\n")
-
-chosen_option = int(input("Choose an option: "))
+# SHORTCUT: to apply TAB in many lines at once -  select the lines, then CTRL + ]
+def show_options():
+    print("1. Register restaurant") 
+    print("2. List restaurants")
+    print("3. Activate restaurant")
+    print("4. Quit\n")
 
 def finish_app():
     # os.system("cls") at windows
@@ -21,11 +23,34 @@ def finish_app():
     print("Finishing the Program")
     exit()
 
-if chosen_option == 1:
-    print("Register restaurant")
-elif chosen_option == 2:
-    print("List restaurants")
-elif chosen_option == 3:
-    print("Activate restaurant")
-else:
-    finish_app()
+def invalid_option():
+    print("Invalid option.\n")
+    input("Type ENTER to return to the Main menu.")
+    main()
+
+def choose_option():
+    try:
+        chosen_option = int(input("Choose an option: "))
+
+        if chosen_option == 1:
+            print("Register restaurant")
+        elif chosen_option == 2:
+            print("List restaurants")
+        elif chosen_option == 3:
+            print("Activate restaurant")
+        elif chosen_option == 4:
+            finish_app()
+        else:
+            invalid_option()
+    except Exception:
+        invalid_option()
+
+def main(): # Define the working steps of the app, makes easier the maintenance
+    os.system("clear")
+    show_app_name()
+    show_options()
+    choose_option()
+
+
+if __name__ == "__main__":  #if main file
+    main()
