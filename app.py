@@ -19,7 +19,7 @@ def show_app_name():
 def show_options():
     print("1. Register restaurant") 
     print("2. List restaurants")
-    print("3. Activate restaurant")
+    print("3. Switch restaurant status")
     print("4. Quit\n")
 
 def finish_app():
@@ -36,9 +36,12 @@ def invalid_option():
     print("Invalid option.\n")
     return_to_main_menu()
 
-def show_subheading(texto):
+def show_subheading(text):
     os.system('clear')
-    print(texto)
+    line = "*" * (len(text))
+    print(line)
+    print(text)
+    print(line)
     print()
 
 
@@ -55,16 +58,17 @@ def register_restaurant():
 def list_restaurants():
     show_subheading("List of restaurants")
     
+    print(f"{'Name of restaurant'.ljust(22)} | {'Category'.ljust(20)} | Status")
     for restaurants in restaurants_list:
         restaurant_name = restaurants['name']
         restaurant_category = restaurants['category']
-        restaurant_active = restaurants['active']
-        print(f'- {restaurant_name} | {restaurant_category} | {restaurant_active}')
+        restaurant_active = "Activated" if restaurants['active'] else "Deactivated"
+        print(f'- {restaurant_name.ljust(20)} | {restaurant_category.ljust(20)} | {restaurant_active}')
     
     return_to_main_menu()
 
-def switch_restaurant_state():
-    show_subheading("Switching the state of a restaurant")
+def switch_restaurant_status():
+    show_subheading("Switching the status of a restaurant")
     restaurant_name = input("Type the desired restaurant name: ")
     restaurant_found = False
 
@@ -88,7 +92,7 @@ def choose_option():
         elif chosen_option == 2:
             list_restaurants()
         elif chosen_option == 3:
-            switch_restaurant_state()
+            switch_restaurant_status()
         elif chosen_option == 4:
             finish_app()
         else:
