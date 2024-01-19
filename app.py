@@ -1,5 +1,9 @@
 import os
-restaurants_list = ['Pizza', 'Sushi']
+restaurants_list = [{'name':'Patio', 'category':'Italian', 'active':'False'},
+                    {'name':'La Cocina', 'category':'Mexican', 'active':'True'},
+                    {'name':'Nanoko', 'category':'Japanese', 'active':'True'},
+                    {'name':'Le Puissant', 'category':'French', 'active':'False'}
+                    ]
 
 def show_app_name():
     print("""
@@ -41,7 +45,9 @@ def show_subheading(texto):
 def register_restaurant():
     show_subheading("Registration of new restaurants")
     restaurant_name = input("Type the desired restaurant name: ")
-    restaurants_list.append(restaurant_name)
+    restaurant_category = input(f"Type the desired category of the restaurant {restaurant_name}: ")
+    restaurant_data = {"name":restaurant_name, "category":restaurant_category, "active": False}
+    restaurants_list.append(restaurant_data)
     print(f"The restaurant {restaurant_name} was registered succesfully!")
     
     return_to_main_menu()
@@ -50,8 +56,28 @@ def list_restaurants():
     show_subheading("List of restaurants")
     
     for restaurants in restaurants_list:
-        print(f'.{restaurants}')
+        restaurant_name = restaurants['name']
+        restaurant_category = restaurants['category']
+        restaurant_active = restaurants['active']
+        print(f'- {restaurant_name} | {restaurant_category} | {restaurant_active}')
     
+    return_to_main_menu()
+
+def switch_restaurant_state():
+    show_subheading("Switching the state of a restaurant")
+    restaurant_name = input("Type the desired restaurant name: ")
+    restaurant_found = False
+
+    for restaurant in restaurants_list:
+        if restaurant_name == restaurant["name"]:
+            restaurant_found = True
+            restaurant["active"] = not restaurant["active"]
+            state_message = f"The restaurant {restaurant_name} was successfully activated." if restaurant["active"] else f"The restaurant {restaurant_name} was successfully deactivated."
+            print(state_message)
+            break
+    if not restaurant_found:
+            print(f"The restaurant {restaurant_name} was not found.")
+
     return_to_main_menu()
 def choose_option():
     try:
@@ -62,7 +88,7 @@ def choose_option():
         elif chosen_option == 2:
             list_restaurants()
         elif chosen_option == 3:
-            print("Activate restaurant")
+            switch_restaurant_state()
         elif chosen_option == 4:
             finish_app()
         else:
