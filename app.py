@@ -1,5 +1,5 @@
 import os
-restaurants_list = []
+restaurants_list = ['Pizza', 'Sushi']
 
 def show_app_name():
     print("""
@@ -20,23 +20,39 @@ def show_options():
 
 def finish_app():
     # os.system("cls") at windows
-    os.system("clear") #at Mac and Linux
-    print("Finishing the Program")
+    # os.system("clear") #at Mac and Linux
+    show_subheading("Finishing the Program")
     exit()
+
+def return_to_main_menu():
+    input("\nType ENTER to return to the Main menu.")
+    main()
 
 def invalid_option():
     print("Invalid option.\n")
-    input("Type ENTER to return to the Main menu.")
-    main()
+    return_to_main_menu()
+
+def show_subheading(texto):
+    os.system('clear')
+    print(texto)
+    print()
+
 
 def register_restaurant():
-    os.system("clear")
-    print("Registration of new restaurants\n")
+    show_subheading("Registration of new restaurants")
     restaurant_name = input("Type the desired restaurant name: ")
     restaurants_list.append(restaurant_name)
-    print(f"The restaurant {restaurant_name} was registered succesfully!\n")
-    input("Type ENTER to return to the Main menu.")
-    main()
+    print(f"The restaurant {restaurant_name} was registered succesfully!")
+    
+    return_to_main_menu()
+
+def list_restaurants():
+    show_subheading("List of restaurants")
+    
+    for restaurants in restaurants_list:
+        print(f'.{restaurants}')
+    
+    return_to_main_menu()
 def choose_option():
     try:
         chosen_option = int(input("Choose an option: "))
@@ -44,7 +60,7 @@ def choose_option():
         if chosen_option == 1:
             register_restaurant()
         elif chosen_option == 2:
-            print("List restaurants")
+            list_restaurants()
         elif chosen_option == 3:
             print("Activate restaurant")
         elif chosen_option == 4:
